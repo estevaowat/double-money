@@ -1,7 +1,5 @@
-import querystring from 'querystring';
 import formatCurrency from '../Utils/currency';
 import { IStockEarnings, IStockRaw, IStock } from '../Interfaces';
-import api from './api';
 
 const getStockEarnings = ({
    currentPrice,
@@ -28,15 +26,15 @@ const formatStocks = (stocks: IStockRaw[]) =>
    });
 
 export default async (): Promise<IStock[]> => {
-   const queryParams = querystring.stringify({
-      function: 'TIME_SERIES_INTRADAY',
-      symbol: 'IBM',
-      interval: '60min',
-      apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
-   });
+   // const queryParams = querystring.stringify({
+   //    function: 'TIME_SERIES_INTRADAY',
+   //    symbol: 'IBM',
+   //    interval: '60min',
+   //    apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
+   // });
 
-   const response = await api.get(`/query?${queryParams}`);
-   console.log(response.data);
+   // const response = await api.get(`/query?${queryParams}`);
+   // console.log(response.data);
 
    const stocks = [
       {
