@@ -9,12 +9,16 @@ const Cards: React.FC = () => {
    const [stocks, setStocks] = useState<IStock[]>([]);
 
    useEffect(() => {
-      const stocksFromDatabase = getStocks();
-      setStocks(stocksFromDatabase);
+      const getStocksFromDatabase = async () => {
+         const stocksFromDatabase = await getStocks();
+         setStocks(stocksFromDatabase);
+      };
+
+      getStocksFromDatabase();
    }, []);
 
    return (
-      <div className="cards">
+      <div className="stocks">
          {stocks.map((stock) => (
             <Card stock={stock} />
          ))}
