@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Loader from '../components/Loader';
 import Card from './Card';
-import { IStock } from '../Interfaces';
 import getStocks from '../services/stockService';
 import './styles.css';
 
 const Cards: React.FC = () => {
-   const [stocks, setStocks] = useState<IStock[]>([]);
+   const [stocks, setStocks] = useState<any[]>([]);
    const [isLoading, setIsLoading] = useState(false);
 
    useEffect(() => {
@@ -25,7 +24,16 @@ const Cards: React.FC = () => {
          {isLoading ? (
             <Loader />
          ) : (
-            stocks.map((stock) => <Card stock={stock} />)
+            stocks.map((stock) => (
+               <Card
+                  name={stock.name}
+                  symbol={stock.symbol}
+                  currentPrice={stock.currentPrice}
+                  averagePrice={stock.averagePrice}
+                  amount={stock.amount}
+                  stockEarnings={stock.stockEarnings}
+               />
+            ))
          )}
       </div>
    );

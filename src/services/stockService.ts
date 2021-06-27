@@ -1,13 +1,18 @@
 import formatCurrency from '../Utils/currency';
-import { IStockEarnings, IStockRaw, IStock } from '../Interfaces';
+
+type StockEarnings = {
+   currentPrice: number;
+   averagePrice: number;
+   amount: number;
+};
 
 const getStockEarnings = ({
    currentPrice,
    averagePrice,
    amount,
-}: IStockEarnings) => currentPrice * amount - averagePrice * amount;
+}: StockEarnings) => currentPrice * amount - averagePrice * amount;
 
-const formatStocks = (stocks: IStockRaw[]) =>
+const formatStocks = (stocks: any[]) =>
    stocks.map((stock) => {
       const { currentPrice, averagePrice, amount } = stock;
 
@@ -25,18 +30,8 @@ const formatStocks = (stocks: IStockRaw[]) =>
       };
    });
 
-export default async (): Promise<IStock[]> => {
-   // const queryParams = querystring.stringify({
-   //    function: 'TIME_SERIES_INTRADAY',
-   //    symbol: 'IBM',
-   //    interval: '60min',
-   //    apikey: process.env.REACT_APP_ALPHA_VANTAGE_API_KEY,
-   // });
-
-   // const response = await api.get(`/query?${queryParams}`);
-   // console.log(response.data);
-
-   const stocks = [
+export default async (): Promise<any[]> => {
+   const stocksFromDatabase = [
       {
          name: 'Netflix',
          symbol: 'NTFL34',
@@ -81,6 +76,6 @@ export default async (): Promise<IStock[]> => {
       },
    ];
 
-   const stocksFormatted = formatStocks(stocks);
-   return stocksFormatted;
+   const stocks = formatStocks(stocksFromDatabase);
+   return stocks;
 };
